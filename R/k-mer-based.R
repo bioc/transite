@@ -96,12 +96,14 @@ count_homopolymer_corrected_kmers <-
 #' @param n_cores number of computing cores to use
 #' @inheritParams generate_kmers
 #' @inheritParams compute_kmer_enrichment
+#' @inheritParams create_kmer_origin_list
 #'
-#' @return A list with two entries:
+#' @return A list with three entries:
 #' \tabular{rl}{
 #'   \code{dfs} \tab a list of data frames with results from
 #'   \code{\link{compute_kmer_enrichment}} for each of the foreground sets\cr
-#'   \code{kmers} \tab a character vector of all k-mers
+#'   \code{kmers} \tab a character vector of all k-mers\cr
+#'   \code{kmer_origins} \tab a list of k-mers and their original sequence(s)
 #' }
 #'
 #' @examples
@@ -196,13 +198,78 @@ calculate_kmer_enrichment <-
             return(list(
                 dfs = enrichment_dfs,
                 kmers = gsub("T", "U", as.character(names(
-                    background_kmers
-                )))
+                    background_kmers))),
+                kmer_origins = create_kmer_origin_list(background_set, k)
+
             ))
         } else {
             return(NULL)
         }
     }
+
+
+#' @title Create \emph{k}-mer lists with their original sequences
+#'
+#' @description
+#' Counts occurrences of \emph{k}-mers of length \code{k} in the given
+#' set of sequences. A list of the sequences the \emph{k}-mer originated
+#' from is created and returned. If the \emph{k}-mer does not exist in
+#' any of the sequences, the list is empty for that \emph{k}-mer.
+#' 
+#' @param sequences character vector of DNA or RNA sequences that
+#' constitute the whole set of sequences being analyzed
+#' @param k number of characters in \emph{k}-mer
+#'
+#' @return A list with \emph{k}-mers as the identifier and a vector
+#' of sequences for each \emph{k}-mer that the \emph{k}-mer is found in
+#'
+#' @examples # define simple sequence sets for foreground and background
+#' sequence_set <- c(
+#'   "CAACAGCCUUAAUU", "CAGUCAAGACUCC", "CUUUGGGGAAU",
+#'   "UCAUUUUAUUAAA", "AAUUGGUGUCUGGAUACUUCCCUGUACAU",
+#'   "AUCAAAUUA", "AGAU", "GACACUUAAAGAUCCU",
+#'   "UAGCAUUAACUUAAUG", "AUGGA", "GAAGAGUGCUCA",
+#'   "AUAGAC", "AGUUC", "CCAGUAA"
+#' )
+#' kmer_origin_list <- create_kmer_origin_list(sequence_set, k = 6)
+#' 
+#' @importFrom Biostrings DNAStringSet
+#' @importFrom Biostrings RNAStringSet
+#' @importFrom stringr str_trim
+#' @family \emph{k}-mer functions
+#' @export
+create_kmer_origin_list <- 
+  function(sequences, k) {
+    kmer_counts <- data.frame()
+    all_seqs_as_string <- paste(sequences, collapse='')
+    is_RNA <- FALSE
+    
+    if (grepl('T', all_seqs_as_string) & !grepl('U', all_seqs_as_string)) {
+      kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::DNAStringSet(sequences), k)
+    } else if (grepl('U', all_seqs_as_string) & !grepl('T', all_seqs_as_string)) {
+      kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::RNAStringSet(sequences), k)
+    } else if (!grepl('U', all_seqs_as_string) & !grepl('T', all_seqs_as_string)) {
+      kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::DNAStringSet(sequences), k)
+    }
+    
+    if (is_RNA) {
+      names(kmer_counts) <- gsub("U", "T", names(kmer_counts))
+    }
+    
+    kmer_sequence_origin_list <- lapply(as.list(data.frame(kmer_counts)), function(x) {
+      indeces <- which(x != 0)
+      if(length(indeces) != 0) {
+        seqs_subset <- str_trim(paste(sequences[indeces], collapse = ', '))
+      } else {
+        seqs_subset <- ''
+      }
+      
+    })
+    
+    names(kmer_sequence_origin_list) <- colnames(kmer_counts)
+    
+    return(kmer_sequence_origin_list)
+  }
 
 #' @title \emph{k}-mer Counts for Sequence Set
 #'

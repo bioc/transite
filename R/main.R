@@ -682,7 +682,7 @@ run_kmer_tsma <- function(foreground_sets,
                           p_combining_method = "fisher",
                           n_cores = 1) {
     # avoid CRAN note
-    kmer <- enrichment <- p_value <- adj_p_value <- NULL
+    origin_sequences <- kmer <- enrichment <- p_value <- adj_p_value <- NULL
 
     if (is.null(motifs)) {
         motifs <- get_motifs()
@@ -728,6 +728,7 @@ run_kmer_tsma <- function(foreground_sets,
             lapply(seq_len(length(foreground_sets)), function(i) {
                 kmers_df <- enrichment_result$dfs[[i]]
                 kmers_df$kmer <- enrichment_result$kmers
+                kmers_df$origin_sequences <- as.character(enrichment_result$kmer_origins)
 
                 foreground_result <-
                     lapply(motifs, function(motif) {
@@ -746,7 +747,8 @@ run_kmer_tsma <- function(foreground_sets,
                                 kmer,
                                 enrichment,
                                 p_value,
-                                adj_p_value
+                                adj_p_value,
+                                origin_sequences
                             )
 
                         geo_mean <-

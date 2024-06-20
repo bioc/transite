@@ -46,6 +46,7 @@ Imports:
     scales (>= 1.0.0),
     stats,
     TFMPvalue (>= 0.0.8),
+    stringr (>= 1.5.1),
     utils
 Suggests:
     knitr (>= 1.20),
