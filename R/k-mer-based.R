@@ -248,6 +248,7 @@ create_kmer_origin_list <-
       kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::DNAStringSet(sequences), k)
     } else if (grepl('U', all_seqs_as_string) & !grepl('T', all_seqs_as_string)) {
       kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::RNAStringSet(sequences), k)
+      is_RNA <- TRUE
     } else if (!grepl('U', all_seqs_as_string) & !grepl('T', all_seqs_as_string)) {
       kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::DNAStringSet(sequences), k)
     }
