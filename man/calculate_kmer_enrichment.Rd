@@ -39,11 +39,12 @@ is used instead of Pearson's chi-squared test}
 \item{n_cores}{number of computing cores to use}
 }
 \value{
-A list with two entries:
+A list with three entries:
 \tabular{rl}{
   \code{dfs} \tab a list of data frames with results from
   \code{\link{compute_kmer_enrichment}} for each of the foreground sets\cr
-  \code{kmers} \tab a character vector of all k-mers
+  \code{kmers} \tab a character vector of all k-mers\cr
+  \code{kmer_origins} \tab a list of k-mers and their original sequence(s)
 }
 }
 \description{
@@ -79,6 +80,7 @@ Other \emph{k}-mer functions:
 \code{\link{check_kmers}()},
 \code{\link{compute_kmer_enrichment}()},
 \code{\link{count_homopolymer_corrected_kmers}()},
+\code{\link{create_kmer_origin_list}()},
 \code{\link{draw_volcano_plot}()},
 \code{\link{estimate_significance}()},
 \code{\link{estimate_significance_core}()},
