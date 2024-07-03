@@ -178,6 +178,10 @@ score_transcripts <- function(sequences, motifs = NULL, max_hits = 5,
     motif_scores_df$relative_hits <- as.numeric(motif_scores_df$relative_hits)
     motif_scores_df$total_sites <- as.numeric(motif_scores_df$total_sites)
     motif_scores_df$one_hit <- as.numeric(motif_scores_df$one_hit)
+    
+    print(motif_scores)
+    print(motif_scores$foreground_scores[[1]]$absolute_hits)
+    
     if (max_hits > 1) {
         motif_scores_df$two_hits <- as.numeric(motif_scores_df$two_hits)
     }
@@ -373,6 +377,13 @@ score_transcripts_single_motif <- function(motif, sequences, max_hits = 5,
 
     absolute_hits[absolute_hits > max_hits] <- max_hits
     sum_absolute_hits <- sum(absolute_hits)
+    
+    # add names to absolute hits
+    if(is.null(names(sequences))) {
+      names(absolute_hits) <- sequences
+    } else {
+      names(absolute_hits) <- names(sequences)
+    }
 
     relative_hits <- sum_absolute_hits / sum_total_sites
 
