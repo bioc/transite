@@ -40,5 +40,5 @@ test_that("draw_volcano_plot", {
     p <- draw_volcano_plot(transite:::kmers_enrichment,
                            get_hexamers(motif[[1]]),
                            get_rbps(motif[[1]]), show_legend = FALSE)
-    expect_equal(class(p), c("gg", "ggplot"))
+    expect_contains(class(p), c("gg", "ggplot"))
 })
