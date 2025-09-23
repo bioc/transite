@@ -215,7 +215,7 @@ calculate_kmer_enrichment <-
 #' set of sequences. A list of the sequences the \emph{k}-mer originated
 #' from is created and returned. If the \emph{k}-mer does not exist in
 #' any of the sequences, the list is empty for that \emph{k}-mer.
-#' 
+#'
 #' @param sequences character vector of DNA or RNA sequences that
 #' constitute the whole set of sequences being analyzed
 #' @param k number of characters in \emph{k}-mer
@@ -232,18 +232,18 @@ calculate_kmer_enrichment <-
 #'   "AUAGAC", "AGUUC", "CCAGUAA"
 #' )
 #' kmer_origin_list <- create_kmer_origin_list(sequence_set, k = 6)
-#' 
+#'
 #' @importFrom Biostrings DNAStringSet
 #' @importFrom Biostrings RNAStringSet
 #' @importFrom stringr str_trim
 #' @family \emph{k}-mer functions
 #' @export
-create_kmer_origin_list <- 
+create_kmer_origin_list <-
   function(sequences, k) {
     kmer_counts <- data.frame()
     all_seqs_as_string <- paste(sequences, collapse='')
     is_rna <- FALSE
-    
+
     if (grepl('T', all_seqs_as_string) & !grepl('U', all_seqs_as_string)) {
       kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::DNAStringSet(sequences), k)
     } else if (grepl('U', all_seqs_as_string) & !grepl('T', all_seqs_as_string)) {
@@ -252,11 +252,11 @@ create_kmer_origin_list <-
     } else if (!grepl('U', all_seqs_as_string) & !grepl('T', all_seqs_as_string)) {
       kmer_counts <- Biostrings::oligonucleotideFrequency(Biostrings::DNAStringSet(sequences), k)
     }
-    
+
     if (is_rna) {
       names(kmer_counts) <- gsub("U", "T", names(kmer_counts))
     }
-    
+
     kmer_sequence_origin_list <- lapply(as.list(data.frame(kmer_counts)), function(x) {
       indeces <- which(x != 0)
       if(length(indeces) != 0) {
@@ -264,11 +264,11 @@ create_kmer_origin_list <-
       } else {
         seqs_subset <- ''
       }
-      
+
     })
-    
+
     names(kmer_sequence_origin_list) <- colnames(kmer_counts)
-    
+
     return(kmer_sequence_origin_list)
   }
 
@@ -692,7 +692,7 @@ estimate_significance <-
                     ggplot2::aes(xintercept = mean(actual)),
                     color = "red",
                     linetype = "dashed",
-                    size = 1
+                    linewidth = 1
                 ) +
                 ggplot2::xlab("mean enrichment value") +
                 ggplot2::theme_bw(base_size = 16) +
