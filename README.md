@@ -1,10 +1,10 @@
 # Transite
 
-[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)  [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.celrep.2020.108064-blue.svg)](https://doi.org/10.1016/j.celrep.2020.108064) [![BioC](https://img.shields.io/badge/BioC-1.20.0-brightgreen.svg)](https://doi.org/doi:10.18129/B9.bioc.transite) [![platforms](https://bioconductor.org/shields/availability/release/transite.svg)](https://bioconductor.org/packages/release/bioc/html/transite.html#archives) [![Coverage Status](https://coveralls.io/repos/github/kkrismer/transite/badge.svg?branch=master)](https://coveralls.io/github/kkrismer/transite?branch=master)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.celrep.2020.108064-blue.svg)](https://doi.org/10.1016/j.celrep.2020.108064) [![BioC](https://img.shields.io/badge/BioC-1.21.0-brightgreen.svg)](https://doi.org/doi:10.18129/B9.bioc.transite) [![platforms](https://bioconductor.org/shields/availability/release/transite.svg)](https://bioconductor.org/packages/release/bioc/html/transite.html#archives) [![Coverage Status](https://coveralls.io/repos/github/kkrismer/transite/badge.svg?branch=master)](https://coveralls.io/github/kkrismer/transite?branch=master)
 
 RNA-binding protein motif analysis
 
-https://transite.mit.edu
+<https://transite.mit.edu>
 
 Transite is a computational method that allows comprehensive analysis of the regulatory role of RNA-binding proteins in various cellular processes by leveraging preexisting gene expression data and current knowledge of binding preferences of RNA-binding proteins.
 
@@ -20,7 +20,7 @@ Transite, a novel computational method that allows cost-effective, time-effectiv
 
 The *transite* package is part of Bioconductor since release 3.8. To install it on your system, enter:
 
-```
+```         
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
   install.packages("BiocManager")
 }
@@ -32,7 +32,7 @@ The above method is recommended for most users, as it is the most recent stable 
 
 The development version can be installed directly from this repository (most recent, least stable):
 
-```
+```         
 if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
@@ -42,7 +42,7 @@ remotes::install_github("kkrismer/transite")
 
 Alternatively, the development version can be installed using the development branch of Bioconductor:
 
-```
+```         
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
@@ -50,23 +50,24 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install(version = "devel")
 BiocManager::install("transite")
 ```
-Note: For most use cases it is not necessary to install the `transite` package locally, as a substantial part of its functionality is offered as an online service at https://transite.mit.edu.
+
+Note: For most use cases it is not necessary to install the `transite` package locally, as a substantial part of its functionality is offered as an online service at <https://transite.mit.edu>.
 
 ## Build status
 
 | Platform | Status |
-|------|------|
+|------------------------------------|------------------------------------|
 | Travis CI | [![Travis build status](https://travis-ci.com/kkrismer/transite.svg?branch=master)](https://travis-ci.com/kkrismer/transite) |
-| Bioconductor 3.18 (release) | [![BioC release](https://bioconductor.org/shields/build/release/bioc/transite.svg)](http://bioconductor.org/checkResults/release/bioc-LATEST/transite/) |
-| Bioconductor 3.19 (devel) | [![BioC devel](https://bioconductor.org/shields/build/devel/bioc/transite.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/transite/) |
+| Bioconductor 3.21 (release) | [![BioC release](https://bioconductor.org/shields/build/release/bioc/transite.svg)](http://bioconductor.org/checkResults/release/bioc-LATEST/transite/) |
+| Bioconductor 3.22 (devel) | [![BioC devel](https://bioconductor.org/shields/build/devel/bioc/transite.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/transite/) |
 
 ## Citation
 
 If you use Transite in your research (R package or website), please cite:
 
-**Transite: A computational motif-based analysis platform that identifies RNA-binding proteins modulating changes in gene expression**  
-Konstantin Krismer, Molly A. Bird, Shohreh Varmeh, Erika D. Handly, Anna Gattinger, Thomas Bernwinkler, Daniel A. Anderson, Andreas Heinzel, Brian A. Joughin, Yi Wen Kong, Ian G. Cannell, and Michael B. Yaffe  
-Cell Reports, Volume 32, Issue 8, 108064; DOI: https://doi.org/10.1016/j.celrep.2020.108064
+**Transite: A computational motif-based analysis platform that identifies RNA-binding proteins modulating changes in gene expression**\
+Konstantin Krismer, Molly A. Bird, Shohreh Varmeh, Erika D. Handly, Anna Gattinger, Thomas Bernwinkler, Daniel A. Anderson, Andreas Heinzel, Brian A. Joughin, Yi Wen Kong, Ian G. Cannell, and Michael B. Yaffe\
+Cell Reports, Volume 32, Issue 8, 108064; DOI: <https://doi.org/10.1016/j.celrep.2020.108064>
 
 ## Funding
 
